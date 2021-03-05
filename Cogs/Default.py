@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from discord.ext import commands
 
+def setup(bot):
+    bot.add_cog(Default(bot))
 
 class Default(commands.Cog):
     def __init__(self, bot):
@@ -16,6 +18,5 @@ class Default(commands.Cog):
         await ctx.send(f'{latency} ms')
 
     @commands.command()
-    async def kill(self, ctx):
-        await ctx.bot.logout()
-        exit()
+    async def quit(self, ctx):
+        quit()

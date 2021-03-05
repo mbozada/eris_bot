@@ -10,7 +10,7 @@ from Cogs import *
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-bot = commands.Bot(command_prefix='-')
+bot = commands.Bot(command_prefix='$')
 
 
 @bot.event
@@ -19,8 +19,12 @@ async def on_ready():
 
 
 if __name__ == '__main__':
-    print('Starting bot')
-    for file in listdir('Cogs'):
+
+    for file in os.listdir('Cogs'):
         if not file.startswith('__') and file.endswith('.py'):
-            bot.add_cog(globals()[file[:-3]](bot))
+            try:
+                bot.load_extension(f'Cogs.{file[:-3]}')
+            except commands.errors.NoEntryPointError:
+                pass
+
     bot.run(TOKEN)
